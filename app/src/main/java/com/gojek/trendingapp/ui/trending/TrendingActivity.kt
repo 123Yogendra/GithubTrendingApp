@@ -1,17 +1,17 @@
-package com.gojek.trendingapp
+package com.gojek.trendingapp.ui.trending
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.gojek.trendingapp.ui.main.MainFragment
+import com.gojek.trendingapp.R
 
-class MainActivity : AppCompatActivity() {
+class TrendingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.trending_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
+                .replace(R.id.container, TrendingFregment.newInstance())
                 .commitNow()
         }
     }
