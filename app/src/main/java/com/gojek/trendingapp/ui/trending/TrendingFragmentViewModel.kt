@@ -3,7 +3,8 @@ package com.gojek.trendingapp.ui.trending
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.gojek.trendingapp.models.TrendingUserList
+import com.datanapps.myexercise.views.motivation.text.TrendingUserListAdapter
+import com.gojek.trendingapp.models.TrendingUser
 import com.gojek.trendingapp.network.TrendingService
 import com.gojek.trendingapp.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,8 +19,8 @@ class TrendingFragmentViewModel : BaseViewModel() {
     lateinit var trendingService: TrendingService
 
 
-   /* val quotesListAdapter: QuotesListAdapter =
-        QuotesListAdapter()*/
+   val trendingUserListAdapter: TrendingUserListAdapter =
+        TrendingUserListAdapter()
 
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
@@ -45,7 +46,7 @@ class TrendingFragmentViewModel : BaseViewModel() {
             .doOnTerminate { onRetrievePostListFinish() }
             .subscribe(
                 { baseQuotes -> onRetrievePostListSuccess(baseQuotes) },
-                { onRetrievePostListError() }
+                { e-> onRetrievePostListError(e) }
             )
 
     }
@@ -59,12 +60,13 @@ class TrendingFragmentViewModel : BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrievePostListSuccess(trendingUserList: TrendingUserList) {
-        Log.d("asd", "test......... success")
-        //quotesListAdapter.updatePostList(baseQuotes.motivationtextlist)
+    private fun onRetrievePostListSuccess(trendingUserList: List<TrendingUser>) {
+        Log.d("asd", "test......... success :: "+trendingUserList)
+        trendingUserListAdapter.updatePostList(trendingUserList)
     }
 
-    private fun onRetrievePostListError() {
+    private fun onRetrievePostListError(throwable: Throwable) {
+        Log.d("asd", "test......... error  :: "+throwable.message)
         //errorMessage.value = R.string.load_data_error
     }
 }

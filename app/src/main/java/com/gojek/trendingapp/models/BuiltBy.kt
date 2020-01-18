@@ -6,14 +6,14 @@ import com.google.gson.annotations.SerializedName
 data class BuiltBy(
     @SerializedName("username")
     @Expose
-    private var username: String,
+     var username: String,
 
     @SerializedName("href")
     @Expose
-    private var href: String,
+     var href: String,
 
     @SerializedName("avatar")
     @Expose
-    private var avatar: String
+     var avatar: String
 
 )
