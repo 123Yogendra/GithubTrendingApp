@@ -1,7 +1,30 @@
 package com.gojek.trendingapp.ui.base
 
 import androidx.lifecycle.ViewModel
+import com.gojek.trendingapp.dagger.components.DaggerViewModelInjector
+import com.gojek.trendingapp.dagger.components.ViewModelInjector
 
-class BaseViewModel :ViewModel(){
+import com.gojek.trendingapp.dagger.modules.NetworkModule
+import com.gojek.trendingapp.ui.trending.TrendingFragmentViewModel
 
+abstract class BaseViewModel : ViewModel() {
+
+
+    private val injector: ViewModelInjector = DaggerViewModelInjector
+        .builder()
+        .networkModule(NetworkModule)
+        .build()
+
+    init {
+        inject()
+    }
+
+    /**
+     * Injects the required dependencies
+     */
+    private fun inject() {
+        when (this) {
+            is TrendingFragmentViewModel -> injector.inject(this)
+        }
+    }
 }
