@@ -3,5 +3,7 @@
 
 
     <string name="msg_retry">Retry</string>
+    <string name="actions">Actions</string>
+    <string name="msg_action">You pressed action.... under development</string>
 
 </resources>

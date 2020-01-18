@@ -19,7 +19,9 @@
         android:theme="@style/AppTheme.NoToolbar"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.trending.TrendingActivity">
+        <activity android:name=".ui.trending.TrendingActivity"
+            android:label=""
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
