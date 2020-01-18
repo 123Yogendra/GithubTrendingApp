@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gojek.trendingapp.BR
 import com.gojek.trendingapp.R
+import com.gojek.trendingapp.dagger.ViewModelFactory
 import com.gojek.trendingapp.databinding.TrendingFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -32,9 +33,9 @@ class TrendingFregment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // quotesViewModel = ViewModelProviders.of(this, ViewModelFactory(activity = activity!!)).get(TrendingFragmentBinding::class.java)
+        quotesViewModel = ViewModelProviders.of(this, ViewModelFactory(activity = activity!!)).get(TrendingFragmentViewModel::class.java)
 
-        quotesViewModel = ViewModelProviders.of(this).get(TrendingFragmentViewModel::class.java)
+        //quotesViewModel = ViewModelProviders.of(this).get(TrendingFragmentViewModel::class.java)
 
     }
 

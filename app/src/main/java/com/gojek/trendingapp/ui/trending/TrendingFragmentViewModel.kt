@@ -1,5 +1,6 @@
 package com.gojek.trendingapp.ui.trending
 
+import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +13,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class TrendingFragmentViewModel : BaseViewModel() {
+class TrendingFragmentViewModel (context: Context): BaseViewModel(context) {
 
 
     @Inject
