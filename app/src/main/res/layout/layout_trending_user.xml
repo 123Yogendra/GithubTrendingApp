@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="position"
+            type="java.lang.Integer" />
+
         <variable
             name="trendingUser"
-            type="com.datanapps.myexercise.views.motivation.text.TrendingUserViewModel" />
+            type="com.gojek.trendingapp.ui.trending.TrendingUserViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +26,7 @@
             android:layout_height="@dimen/dp_avtar"
             android:layout_alignParentTop="true"
             android:scaleType="center"
-            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +59,75 @@
             app:mutableText="@{trendingUser.getAuthor()}"
             tools:text="name fd f df  f"
             />
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expended_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_avatar"
+            android:layout_marginTop="@dimen/dp_10"
+            app:mutableVisibility="@{trendingUser.getExpended()}"
+            android:padding="@dimen/dp_5">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/url"
+                style="@style/StyleName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/dp_15"
+                app:mutableText="@{trendingUser.getUrl()}"
+                tools:text="url"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/language"
+                style="@style/StyleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/url"
+                android:layout_marginStart="@dimen/dp_15"
+                app:mutableText="@{trendingUser.getLanguage()}"
+                tools:text="language"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/star"
+                style="@style/StyleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintTop_toBottomOf="@+id/url"
+                app:layout_constraintStart_toEndOf="@+id/language"
+                android:drawableStart="@mipmap/ic_star"
+                app:mutableText="@{trendingUser.getStar()}"
+                tools:text="star"
+                />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fork"
+                style="@style/StyleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintTop_toBottomOf="@+id/url"
+                app:layout_constraintStart_toEndOf="@+id/star"
+                android:drawableStart="@mipmap/ic_fork_black"
+                app:mutableText="@{trendingUser.getForks()}"
+                tools:text="forks"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

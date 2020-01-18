@@ -1,4 +1,4 @@
-package com.gojek.trendingapp.ui.base
+package com.gojek.trendingapp.base
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

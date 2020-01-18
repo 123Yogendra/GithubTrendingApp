@@ -47,6 +47,7 @@ data class TrendingUser(
 
     @SerializedName("builtBy")
     @Expose
-    var buildBylist: List<BuiltBy> = emptyList()
+    var buildBylist: List<BuiltBy> = emptyList(),
 
+    var expanded: Boolean = false
 )

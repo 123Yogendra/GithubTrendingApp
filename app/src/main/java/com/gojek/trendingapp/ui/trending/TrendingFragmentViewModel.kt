@@ -5,10 +5,9 @@ import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
-import com.datanapps.myexercise.views.motivation.text.TrendingUserListAdapter
 import com.gojek.trendingapp.models.TrendingUser
 import com.gojek.trendingapp.network.TrendingService
-import com.gojek.trendingapp.ui.base.BaseViewModel
+import com.gojek.trendingapp.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

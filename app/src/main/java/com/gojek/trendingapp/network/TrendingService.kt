@@ -8,7 +8,6 @@ interface TrendingService {
 
     //https://github-trending-api.now.sh/repositories?language=&since=daily&spoken_language_code=
 
-
     @GET("repositories?language=&since=daily&spoken_language_code=")
     fun getTrendingUserList(): Observable<List<TrendingUser>>
 
