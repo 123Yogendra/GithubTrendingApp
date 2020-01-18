@@ -16,6 +16,7 @@ class TrendingUserViewModel : ViewModel() {
     private val star = MutableLiveData<String>()
     private val forks = MutableLiveData<String>()
     private val expended = MutableLiveData<Int>()
+    private val languageColor = MutableLiveData<String>()
 
     fun bind(trendingUser: TrendingUser ) {
         name.value = trendingUser.name
@@ -26,7 +27,7 @@ class TrendingUserViewModel : ViewModel() {
         star.value = trendingUser.stars.toString()
         forks.value = trendingUser.forks.toString()
         expended.value = if(trendingUser.expanded) View.VISIBLE else View.GONE
-
+        languageColor.value = trendingUser.languageColor
     }
 
     fun getName(): MutableLiveData<String> {
@@ -60,6 +61,11 @@ class TrendingUserViewModel : ViewModel() {
 
     fun getExpended(): MutableLiveData<Int> {
         return expended
+    }
+
+
+    fun getLanguageColor(): MutableLiveData<String> {
+        return languageColor
     }
 
 }

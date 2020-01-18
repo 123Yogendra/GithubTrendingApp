@@ -1,5 +1,10 @@
 package com.gojek.trendingapp.utils
 
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -60,8 +65,8 @@ fun setVisibility(view: View, visible: Boolean) {
 @BindingAdapter("app:srcRoundedImage")
 fun setRoundedImageUrl(imageView: ImageView, url: String?) {
     val parentActivity: AppCompatActivity? = imageView.getParentActivity()
-    Log.d("asd", "------ :: "+url)
-    if(parentActivity != null && !url.isNullOrBlank()) {
+    Log.d("asd", "------ :: " + url)
+    if (parentActivity != null && !url.isNullOrBlank()) {
         Glide.with(parentActivity)
             .load(url)
             .placeholder(R.mipmap.ic_launcher)
@@ -70,5 +75,20 @@ fun setRoundedImageUrl(imageView: ImageView, url: String?) {
 
 
     }
-
 }
+
+
+    @BindingAdapter("app:setDrawablColor")
+    fun setDrawablColor(imageView: ImageView, colorCode: String?) {
+        val parentActivity: AppCompatActivity? = imageView.getParentActivity()
+        if (parentActivity != null && !colorCode.isNullOrBlank()) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                imageView.getBackground().setColorFilter(BlendModeColorFilter(Color.parseColor(colorCode), BlendMode.SRC_ATOP))
+            } else {
+                imageView.getBackground().setColorFilter(Color.parseColor(colorCode), PorterDuff.Mode.SRC_ATOP)
+            }
+
+        }
+    }
+
