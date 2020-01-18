@@ -1,13 +1,17 @@
 package com.gojek.trendingapp.utils
 
 import android.content.ContextWrapper
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.gojek.trendingapp.R
 
 
 @BindingAdapter("adapter")
@@ -38,3 +42,19 @@ fun setVisibility(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+
+
+@BindingAdapter("app:srcCompat")
+fun setImageUrl(imageView: ImageView, url: String?) {
+    val parentActivity: AppCompatActivity? = imageView.getParentActivity()
+    Log.d("asd", "------ :: "+url)
+    if(parentActivity != null && !url.isNullOrBlank()) {
+        Glide.with(parentActivity)
+            .load(url)
+            .placeholder(R.mipmap.ic_launcher)
+            .into(imageView)
+
+
+    }
+
+}
