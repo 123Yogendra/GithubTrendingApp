@@ -57,11 +57,12 @@ class NetworkModule (var context: Context) {
             .addInterceptor { chain ->
                 var request = chain.request()
                 request = if (isConnected)
-                    request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
+                    // cache 2 hours only
+                    request.newBuilder().header("Cache-Control", "public, max-age=" + 60 * 60 * 2).build()
                 else
                     request.newBuilder().header(
                         "Cache-Control",
-                        "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
+                        "public, only-if-cached, max-stale=" + 60 * 60 * 2
                     ).build()
                 chain.proceed(request)
             }
