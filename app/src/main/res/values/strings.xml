@@ -7,6 +7,6 @@
     <string name="msg_action">You pressed action.... under development</string>
     <string name="msg_somthing_went_wrong">Somthing went wrong..</string>
 
-    <string name="msg_no_internet">No Internet</string>
+    <string name="msg_fail_to_load">An alien is probably blocking your signal.</string>
 
 </resources>

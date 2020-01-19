@@ -15,13 +15,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"
+            app:shimmerVisibility="@{trendingViewModel.getLoadingVisibility()}"
+            >
+
+            <!-- Adding 7 rows of placeholders -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <include layout="@layout/layout_placeholder_trending_user" />
+                <include layout="@layout/layout_placeholder_trending_user" />
+                <include layout="@layout/layout_placeholder_trending_user" />
+                <include layout="@layout/layout_placeholder_trending_user" />
+                <include layout="@layout/layout_placeholder_trending_user" />
+                <include layout="@layout/layout_placeholder_trending_user" />
+                <include layout="@layout/layout_placeholder_trending_user" />
+                <include layout="@layout/layout_placeholder_trending_user" />
+                <include layout="@layout/layout_placeholder_trending_user" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:refreshing="@{trendingViewModel.isLoading}"
             app:onRefreshListener="@{() -> trendingViewModel.onPulltoRefresh()}"
-            >
+            app:refreshing="@{trendingViewModel.isLoading}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trending_list"
@@ -36,7 +68,7 @@
                 tools:listitem="@layout/layout_trending_user" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <androidx.core.widget.ContentLoadingProgressBar
+       <!-- <androidx.core.widget.ContentLoadingProgressBar
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +77,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
-            app:mutableVisibility="@{trendingViewModel.getLoadingVisibility()}" />
+            app:mutableVisibility="@{trendingViewModel.getLoadingVisibility()}" />-->
+
 
 
 
@@ -55,63 +88,79 @@
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             android:padding="@dimen/dp_16"
-            app:mutableVisibility="@{trendingViewModel.errorLayout}"
-            >
+            android:visibility="gone"
+            app:mutableVisibility="@{trendingViewModel.errorLayout}">
 
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_no_internet"
-                android:layout_width="wrap_content"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/error_layout_scroll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:fillViewport="true"
                 app:layout_constraintBottom_toTopOf="@+id/btn_retry"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:src="@mipmap/nointernet_connection" />
+                app:mutableVisibility="@{trendingViewModel.errorLayout}">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/dp_16"
+                    app:mutableVisibility="@{trendingViewModel.errorLayout}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_no_internet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/nointernet_connection"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/StyleErrorTitle"
-                android:id="@+id/tv_error_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/iv_no_internet"
-                android:layout_marginTop="@dimen/dp_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-               android:text="@string/msg_somthing_went_wrong"
-                tools:text="@string/msg_retry" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_error_title"
+                        style="@style/StyleErrorTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_24"
+                        android:text="@string/msg_somthing_went_wrong"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_no_internet"
+                        tools:text="@string/msg_retry" />
 
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/StyleErrorMessage"
-                android:id="@+id/tv_error_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv_error_title"
-                android:layout_marginTop="@dimen/dp_6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:mutableText="@{trendingViewModel.errorMessage}"
-                tools:text="@string/msg_retry" />
-
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_error_message"
+                        style="@style/StyleErrorMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:text="fdfdfd"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_error_title"
+                        app:mutableText="@{trendingViewModel.errorMessage}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_retry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_button"
+                android:onClick="@{() -> trendingViewModel.loadTrendingData()}"
+                android:text="@string/msg_retry"
+                android:textColor="@color/text_retry"
+                android:textSize="@dimen/text_author"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:onClick="@{() -> trendingViewModel.loadTrendingData()}"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/text_retry"
-
-                android:background="@drawable/bg_button"
-                android:text="@string/msg_retry" />
+                app:layout_constraintStart_toStartOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

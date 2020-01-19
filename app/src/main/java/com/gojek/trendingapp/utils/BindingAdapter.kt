@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.gojek.trendingapp.R
 
 
@@ -24,7 +25,7 @@ import com.gojek.trendingapp.R
 fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
 
     val parentActivity: AppCompatActivity? = view.getParentActivity()
-    if(parentActivity != null) {
+    if (parentActivity != null) {
         // add divider
         view.addItemDecoration(
             DividerItemDecoration(
@@ -40,26 +41,45 @@ fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
 @BindingAdapter("mutableVisibility")
 fun setMutableVisibility(view: View, visibility: MutableLiveData<Int>?) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
-    if(parentActivity != null && visibility != null) {
-        visibility.observe(parentActivity, Observer { value -> view.visibility = value?: View.VISIBLE})
+    if (parentActivity != null && visibility != null) {
+        visibility.observe(
+            parentActivity,
+            Observer { value -> view.visibility = value ?: View.VISIBLE })
     }
 }
+
+
+@BindingAdapter("shimmerVisibility")
+fun shimmerVisibility(view: ShimmerFrameLayout, visibility: MutableLiveData<Int>?) {
+    val parentActivity: AppCompatActivity? = view.getParentActivity()
+    if (parentActivity != null && visibility != null) {
+        visibility.observe(parentActivity, Observer { value ->
+
+            if (value == View.VISIBLE)
+                view.startShimmerAnimation()
+
+            else
+                view.stopShimmerAnimation()
+
+            view.setVisibility(value);
+        })
+    }
+}
+
 
 @BindingAdapter("mutableText")
 fun setMutableText(view: TextView, text: MutableLiveData<String>?) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
-    if(parentActivity != null && text != null) {
-        text.observe(parentActivity, Observer { value -> view.text = value?:""})
+    if (parentActivity != null && text != null) {
+        text.observe(parentActivity, Observer { value -> view.text = value ?: "" })
     }
 }
-
 
 
 @BindingAdapter("android:visibility")
 fun setVisibility(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }
-
 
 
 @BindingAdapter("app:srcRoundedImage")
@@ -78,17 +98,23 @@ fun setRoundedImageUrl(imageView: ImageView, url: String?) {
 }
 
 
-    @BindingAdapter("app:setDrawablColor")
-    fun setDrawablColor(imageView: ImageView, colorCode: String?) {
-        val parentActivity: AppCompatActivity? = imageView.getParentActivity()
-        if (parentActivity != null && !colorCode.isNullOrBlank()) {
+@BindingAdapter("app:setDrawablColor")
+fun setDrawablColor(imageView: ImageView, colorCode: String?) {
+    val parentActivity: AppCompatActivity? = imageView.getParentActivity()
+    if (parentActivity != null && !colorCode.isNullOrBlank()) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                imageView.getBackground().setColorFilter(BlendModeColorFilter(Color.parseColor(colorCode), BlendMode.SRC_ATOP))
-            } else {
-                imageView.getBackground().setColorFilter(Color.parseColor(colorCode), PorterDuff.Mode.SRC_ATOP)
-            }
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            imageView.getBackground().setColorFilter(
+                BlendModeColorFilter(
+                    Color.parseColor(colorCode),
+                    BlendMode.SRC_ATOP
+                )
+            )
+        } else {
+            imageView.getBackground()
+                .setColorFilter(Color.parseColor(colorCode), PorterDuff.Mode.SRC_ATOP)
         }
+
     }
+}
 

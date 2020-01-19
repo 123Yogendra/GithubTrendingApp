@@ -55,27 +55,24 @@ class TrendingFragmentViewModel(context: Context) : BaseViewModel(context) {
     }
 
     fun loadTrendingData() {
-
-
             subscription = trendingService.getTrendingUserList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRetrievePostListStart() }
-                .doOnTerminate { onRetrievePostListFinish() }
+                .doOnSubscribe { onRetrieveStart() }
+                .doOnTerminate { onRetrieveFinish() }
                 .subscribe(
                     { baseQuotes -> onRetrieveSuccess(baseQuotes) },
                     { e -> onRetrieveError(e) }
                 )
 
-
     }
 
-    private fun onRetrievePostListStart() {
+    private fun onRetrieveStart() {
         loadingVisibility.value = View.VISIBLE
-        errorMessage.value = null
+        //errorMessage.value = null
     }
 
-    private fun onRetrievePostListFinish() {
+    private fun onRetrieveFinish() {
         loadingVisibility.value = View.GONE
         isLoading.set(false)
     }
@@ -89,7 +86,7 @@ class TrendingFragmentViewModel(context: Context) : BaseViewModel(context) {
     private fun onRetrieveError(throwable: Throwable) {
         isLoading.set(false)
         errorLayout.value = View.VISIBLE
-        errorMessage.value = throwable.message
+        errorMessage.value = context.getString(R.string.msg_fail_to_load) //throwable.message
 
     }
 }
