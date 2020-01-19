@@ -29,23 +29,18 @@ class TrendingUserListAdapter : RecyclerView.Adapter<TrendingUserListAdapter.Vie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(trendingUserList[position])
         holder.itemView.setOnClickListener {
-
             trendingUserList[position].expanded = !trendingUserList[position].expanded
-
-
 
             if (selectedPosition != position) {
                 if (selectedPosition >= 0) {
                     trendingUserList[selectedPosition].expanded = false
+                    notifyItemChanged(selectedPosition)
                 }
                 selectedPosition = position
-
             }
-
-
-
-
-            notifyDataSetChanged()
+           // notifyDataSetChanged()
+            //notifyItemChanged(selectedPosition)
+            notifyItemChanged(position)
 
         }
 
@@ -55,7 +50,7 @@ class TrendingUserListAdapter : RecyclerView.Adapter<TrendingUserListAdapter.Vie
         return if (::trendingUserList.isInitialized) trendingUserList.size else 0
     }
 
-    fun updatePostList(trendingUserList: List<TrendingUser>) {
+    fun updateTrendingUserList(trendingUserList: List<TrendingUser>) {
         this.trendingUserList = trendingUserList
         notifyDataSetChanged()
     }

@@ -79,7 +79,7 @@ class TrendingFragmentViewModel(context: Context) : BaseViewModel(context) {
     private fun onRetrieveSuccess(trendingUserList: List<TrendingUser>) {
         isLoading.set(false)
         errorLayout.value = View.GONE
-        trendingUserListAdapter.updatePostList(trendingUserList)
+        trendingUserListAdapter.updateTrendingUserList(trendingUserList)
     }
 
     private fun onRetrieveError(throwable: Throwable) {
