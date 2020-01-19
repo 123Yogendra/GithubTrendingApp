@@ -93,7 +93,7 @@ class NetworkModule (var context: Context) {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-            //.client(provideHttpCache())
+            .client(provideHttpCache())
             .build()
     }
 }
