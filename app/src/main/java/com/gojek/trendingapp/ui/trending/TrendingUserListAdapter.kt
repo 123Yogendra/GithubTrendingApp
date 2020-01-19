@@ -36,7 +36,6 @@ class TrendingUserListAdapter : RecyclerView.Adapter<TrendingUserListAdapter.Vie
 
 
             if (selectedPosition != position) {
-                //trendingUserList[position].expanded = !trendingUserList[position].expanded
                 if (selectedPosition >= 0) {
                     trendingUserList[selectedPosition].expanded = false
                 }

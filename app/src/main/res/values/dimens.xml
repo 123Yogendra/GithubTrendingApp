@@ -6,13 +6,16 @@
 
     <dimen name="text_name">12sp</dimen>
     <dimen name="text_author">15sp</dimen>
+    <dimen name="text_error">18sp</dimen>
 
     <dimen name="dp_avtar">32dp</dimen>
 
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_6">6dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_10">10dp</dimen>
     <dimen name="dp_16">16dp</dimen>
     <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
 
 </resources>

@@ -5,28 +5,37 @@ import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
+import com.gojek.trendingapp.R
 import com.gojek.trendingapp.models.TrendingUser
 import com.gojek.trendingapp.network.TrendingService
 import com.gojek.trendingapp.base.BaseViewModel
+import com.gojek.trendingapp.dagger.modules.NetworkModule
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class TrendingFragmentViewModel (context: Context): BaseViewModel(context) {
+class TrendingFragmentViewModel(context: Context) : BaseViewModel(context) {
 
 
     @Inject
     lateinit var trendingService: TrendingService
 
     var isLoading = ObservableBoolean()
-   val trendingUserListAdapter: TrendingUserListAdapter =
+    val trendingUserListAdapter: TrendingUserListAdapter =
         TrendingUserListAdapter()
 
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
-    val errorMessage: MutableLiveData<Int> = MutableLiveData()
-    val errorClickListener = View.OnClickListener { loadTrendingData() }
+
+
+    // handle error detail
+
+    val errorMessage = MutableLiveData<String>()
+
+    val errorLayout = MutableLiveData<Int>().apply {
+        value = View.GONE
+    }
 
     private lateinit var subscription: Disposable
 
@@ -42,20 +51,22 @@ class TrendingFragmentViewModel (context: Context): BaseViewModel(context) {
     /* Needs to be public for Databinding */
     fun onPulltoRefresh() {
         isLoading.set(true)
-        loadTrendingData ()
+        loadTrendingData()
     }
 
-     private fun loadTrendingData() {
+    fun loadTrendingData() {
 
-        subscription = trendingService.getTrendingUserList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrievePostListStart() }
-            .doOnTerminate { onRetrievePostListFinish() }
-            .subscribe(
-                { baseQuotes -> onRetrievePostListSuccess(baseQuotes) },
-                { e-> onRetrievePostListError(e) }
-            )
+
+            subscription = trendingService.getTrendingUserList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { onRetrievePostListStart() }
+                .doOnTerminate { onRetrievePostListFinish() }
+                .subscribe(
+                    { baseQuotes -> onRetrieveSuccess(baseQuotes) },
+                    { e -> onRetrieveError(e) }
+                )
+
 
     }
 
@@ -69,15 +80,16 @@ class TrendingFragmentViewModel (context: Context): BaseViewModel(context) {
         isLoading.set(false)
     }
 
-    private fun onRetrievePostListSuccess(trendingUserList: List<TrendingUser>) {
-        Log.d("asd", "test......... success :: "+trendingUserList)
+    private fun onRetrieveSuccess(trendingUserList: List<TrendingUser>) {
         isLoading.set(false)
+        errorLayout.value = View.GONE
         trendingUserListAdapter.updatePostList(trendingUserList)
     }
 
-    private fun onRetrievePostListError(throwable: Throwable) {
+    private fun onRetrieveError(throwable: Throwable) {
         isLoading.set(false)
-        Log.d("asd", "test......... error  :: "+throwable.message)
-        //errorMessage.value = R.string.load_data_error
+        errorLayout.value = View.VISIBLE
+        errorMessage.value = throwable.message
+
     }
 }

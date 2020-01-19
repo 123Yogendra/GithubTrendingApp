@@ -34,6 +34,23 @@
     </style>
 
 
+    <style name="StyleErrorTitle" parent="@style/StyleName">
+        <item name="android:textSize">@dimen/text_error</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_error</item>
+        <item name="android:gravity">center</item>
+        <item name="android:lines">2</item>
+    </style>
+
+
+    <style name="StyleErrorMessage" parent="@style/StyleName">
+        <item name="android:textSize">@dimen/text_author</item>
+        <item name="android:textColor">@color/text_error_message</item>
+        <item name="android:gravity">center</item>
+        <item name="android:lines">3</item>
+    </style>
+
+
 
 
 

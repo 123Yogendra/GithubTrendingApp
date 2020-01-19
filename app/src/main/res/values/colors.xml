@@ -10,4 +10,7 @@
 
     <color name="list_text_color">#52575C</color>
 
+    <color name="text_error">#4A4A4A</color>
+    <color name="text_error_message">#929292</color>
+    <color name="text_retry">#37B057</color>
 </resources>
