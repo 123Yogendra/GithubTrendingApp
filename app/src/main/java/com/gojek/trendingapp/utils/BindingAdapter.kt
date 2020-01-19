@@ -54,7 +54,7 @@ fun shimmerVisibility(view: ShimmerFrameLayout, visibility: MutableLiveData<Int>
     val parentActivity: AppCompatActivity? = view.getParentActivity()
     if (parentActivity != null && visibility != null) {
         visibility.observe(parentActivity, Observer { value ->
-            view.setVisibility(value);
+            view.visibility =value
             if (value == View.VISIBLE)
                 view.startShimmerAnimation()
             else
@@ -115,5 +115,6 @@ fun setDrawableColor(imageView: ImageView, colorCode: String?) {
         }
 
     }
+    else imageView.visibility = View.GONE
 }
 

@@ -25,7 +25,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_avatar"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_avatar"
+            android:layout_height="@dimen/dp_avatar_dim"
             android:layout_margin="@dimen/dp_16"
             android:scaleType="center"
             app:layout_constraintDimensionRatio="1:1"

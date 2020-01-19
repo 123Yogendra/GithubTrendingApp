@@ -36,7 +36,7 @@ class TrendingActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.getItemId()) {
             R.id.action -> {
-                Snackbar.make(activity_trending_root, getString(R.string.msg_action), Snackbar.LENGTH_INDEFINITE).show()
+                Snackbar.make(activity_trending_root, getString(R.string.msg_action), Snackbar.LENGTH_LONG).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
