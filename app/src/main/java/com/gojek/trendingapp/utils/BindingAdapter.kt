@@ -54,14 +54,13 @@ fun shimmerVisibility(view: ShimmerFrameLayout, visibility: MutableLiveData<Int>
     val parentActivity: AppCompatActivity? = view.getParentActivity()
     if (parentActivity != null && visibility != null) {
         visibility.observe(parentActivity, Observer { value ->
-
+            view.setVisibility(value);
             if (value == View.VISIBLE)
                 view.startShimmerAnimation()
-
             else
                 view.stopShimmerAnimation()
 
-            view.setVisibility(value);
+
         })
     }
 }
@@ -98,8 +97,8 @@ fun setRoundedImageUrl(imageView: ImageView, url: String?) {
 }
 
 
-@BindingAdapter("app:setDrawablColor")
-fun setDrawablColor(imageView: ImageView, colorCode: String?) {
+@BindingAdapter("app:setDrawableColor")
+fun setDrawableColor(imageView: ImageView, colorCode: String?) {
     val parentActivity: AppCompatActivity? = imageView.getParentActivity()
     if (parentActivity != null && !colorCode.isNullOrBlank()) {
 

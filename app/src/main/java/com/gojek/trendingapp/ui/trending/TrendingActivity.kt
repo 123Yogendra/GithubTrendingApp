@@ -6,8 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.gojek.trendingapp.R
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.layout_toolbar.*
 import kotlinx.android.synthetic.main.activity_trending.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 
 
 class TrendingActivity : AppCompatActivity() {

@@ -1,15 +1,13 @@
 package com.gojek.trendingapp.ui.trending
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import com.gojek.trendingapp.R
+import com.gojek.trendingapp.base.BaseViewModel
 import com.gojek.trendingapp.models.TrendingUser
 import com.gojek.trendingapp.network.TrendingService
-import com.gojek.trendingapp.base.BaseViewModel
-import com.gojek.trendingapp.dagger.modules.NetworkModule
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -48,13 +46,14 @@ class TrendingFragmentViewModel(context: Context) : BaseViewModel(context) {
         subscription.dispose()
     }
 
-    /* Needs to be public for Databinding */
+    /* binding for pull to refresh */
     fun onPulltoRefresh() {
         isLoading.set(true)
         loadTrendingData()
     }
 
     fun loadTrendingData() {
+        errorLayout.value = View.GONE
             subscription = trendingService.getTrendingUserList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -69,7 +68,7 @@ class TrendingFragmentViewModel(context: Context) : BaseViewModel(context) {
 
     private fun onRetrieveStart() {
         loadingVisibility.value = View.VISIBLE
-        //errorMessage.value = null
+
     }
 
     private fun onRetrieveFinish() {
@@ -84,6 +83,7 @@ class TrendingFragmentViewModel(context: Context) : BaseViewModel(context) {
     }
 
     private fun onRetrieveError(throwable: Throwable) {
+
         isLoading.set(false)
         errorLayout.value = View.VISIBLE
         errorMessage.value = context.getString(R.string.msg_fail_to_load) //throwable.message

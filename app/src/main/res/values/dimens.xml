@@ -8,7 +8,7 @@
     <dimen name="text_author">15sp</dimen>
     <dimen name="text_error">18sp</dimen>
 
-    <dimen name="dp_avtar">32dp</dimen>
+    <dimen name="dp_avatar">32dp</dimen>
 
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_6">6dp</dimen>

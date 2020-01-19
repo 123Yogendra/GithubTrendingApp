@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.gojek.trendingapp.BR
 import com.gojek.trendingapp.R
 import com.gojek.trendingapp.dagger.ViewModelFactory
 import com.gojek.trendingapp.databinding.FragmentTrendingBinding
-
-import com.google.android.material.snackbar.Snackbar
 
 
 class TrendingFregment : Fragment() {
